@@ -1,7 +1,10 @@
 package api.veiculos.controller.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.time.LocalDateTime;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ParkingDTO {
 
     private String id;
@@ -13,7 +16,7 @@ public class ParkingDTO {
     private LocalDateTime exitDate;
     private Double bill;
 
-    
+
     public String getId() {
         return id;
     }
