@@ -4,9 +4,9 @@ import api.veiculos.controller.dto.ParkingDTO;
 import api.veiculos.controller.mapper.ParkingMapper;
 import api.veiculos.model.Parking;
 import api.veiculos.service.ParkingService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,9 +24,24 @@ public class ParkingController {
     }
 
     @GetMapping
-    public List<ParkingDTO> findAll(){
+    public ResponseEntity<List<ParkingDTO>> findAll(){
         List<Parking> parkingList = parkingService.findAll();
         List<ParkingDTO> result = parkingMapper.toParkingDTOList(parkingList);
-        return result;
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ParkingDTO> findById(@PathVariable String id) {
+        Parking parking = parkingService.findById(id);
+        ParkingDTO result = parkingMapper.toParkingDTO(parking);
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping
+    public ResponseEntity<ParkingDTO> save(@RequestBody ParkingDTO parkingDTO) {
+        var parkingCreate = parkingMapper.toParking(parkingDTO);
+        Parking parking = parkingService.save(parkingCreate);
+        ParkingDTO result = parkingMapper.toParkingDTO(parking);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 }
