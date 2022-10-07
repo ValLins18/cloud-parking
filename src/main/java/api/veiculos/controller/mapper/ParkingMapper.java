@@ -1,5 +1,6 @@
 package api.veiculos.controller.mapper;
 
+import api.veiculos.controller.dto.ParkingCreateDTO;
 import api.veiculos.controller.dto.ParkingDTO;
 import api.veiculos.model.Parking;
 import org.modelmapper.ModelMapper;
@@ -22,5 +23,9 @@ public class ParkingMapper {
 
     public Parking toParking(ParkingDTO parkingDTO) {
         return MODEL_MAPPER.map(parkingDTO, Parking.class);
+    }
+
+    public Parking toParking(ParkingCreateDTO parkingCreateDTO) {
+        return MODEL_MAPPER.map(parkingCreateDTO, Parking.class);
     }
 }

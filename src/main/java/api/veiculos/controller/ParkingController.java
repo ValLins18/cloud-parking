@@ -1,5 +1,6 @@
 package api.veiculos.controller;
 
+import api.veiculos.controller.dto.ParkingCreateDTO;
 import api.veiculos.controller.dto.ParkingDTO;
 import api.veiculos.controller.mapper.ParkingMapper;
 import api.veiculos.model.Parking;
@@ -38,8 +39,8 @@ public class ParkingController {
     }
 
     @PostMapping
-    public ResponseEntity<ParkingDTO> save(@RequestBody ParkingDTO parkingDTO) {
-        var parkingCreate = parkingMapper.toParking(parkingDTO);
+    public ResponseEntity<ParkingDTO> save(@RequestBody ParkingCreateDTO parkingCreateDTO) {
+        var parkingCreate = parkingMapper.toParking(parkingCreateDTO);
         Parking parking = parkingService.save(parkingCreate);
         ParkingDTO result = parkingMapper.toParkingDTO(parking);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
